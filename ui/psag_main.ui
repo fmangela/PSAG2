@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>291</width>
-    <height>552</height>
+    <width>512</width>
+    <height>822</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,7 +27,7 @@
           <string/>
          </property>
          <attribute name="title">
-          <string>算术题</string>
+          <string>整数算术题</string>
          </attribute>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
@@ -213,10 +213,13 @@
          <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
         </property>
         <property name="lineWrapMode">
-         <enum>QTextEdit::LineWrapMode::FixedColumnWidth</enum>
+         <enum>QTextEdit::LineWrapMode::WidgetWidth</enum>
         </property>
         <property name="readOnly">
          <bool>true</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::TextInteractionFlag::TextSelectableByMouse</set>
         </property>
        </widget>
       </item>
@@ -229,7 +232,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>291</width>
+     <width>512</width>
      <height>20</height>
     </rect>
    </property>
