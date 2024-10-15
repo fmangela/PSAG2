@@ -53,13 +53,19 @@ class Button1Operation(Operation):
             list_plus_questions, list_plus_answers = generate_int_plus_questions(self.input_cal_min_value, self.input_cal_max_value, amount_plus)
         elif self.tf_minus:
             amount_minus = len(list_.pop())
+            list_minus_questions, list_minus_answers = generate_int_minus_questions(self.input_cal_min_value, self.input_cal_max_value, amount_minus)
         elif self.tf_multi:
             amount_multi = len(list_.pop())
+            # 这里需要添加是否为九九乘法口诀表的计算判断
+
+            list_multi_questions, list_multi_answers = generate_int_multi_questions(self.input_cal_min_value, self.input_cal_max_value, amount_multi)
         elif self.tf_division:
             amount_division = len(list_.pop())
+            list_division_questions, list_division_answers = generate_int_division_questions(self.input_cal_min_value, self.input_cal_max_value, amount_division, self.tf_remainder)
         elif self.tf_compare:
             amount_compare = len(list_.pop())
 
+        # 合并题目并打乱
 
 
         pass
