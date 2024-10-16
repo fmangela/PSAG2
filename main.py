@@ -25,6 +25,7 @@ class MainWindow:
 
         # tab_1里面的关联
         self.ui.checkbox_tf_division.stateChanged.connect(self.on_checkbox_tf_division_state_changed)
+        self.ui.checkbox_tf_multi.stateChanged.connect(self.on_checkbox_tf_multi_state_changed)
         self.ui.button_generate_1.clicked.connect(self.on_button_generate_1_clicked)
 
     """
@@ -34,11 +35,22 @@ class MainWindow:
     def on_checkbox_tf_division_state_changed(self, state):
         # 当 checkbox_tf_division 的状态改变时调用此函数
         if state == 2:
-            # 如果被选中，则使 checkbox2 可选择
+            # 如果被选中，则使 checkbox_tf_remainder 可选择
             self.ui.checkbox_tf_remainder.setEnabled(True)
         else:
-            # 如果 checkbox1 未被选中，则使 checkbox2 不可选择
+            # 如果 checkbox_tf_division 未被选中，则使 checkbox_tf_remainder 不可选择
             self.ui.checkbox_tf_remainder.setEnabled(False)
+
+    def on_checkbox_tf_multi_state_changed(self, state):
+        # 当 checkbox_tf_multi 的状态改变时调用此函数
+        if state == 2:
+            # 如果被选中，则使 multi_method_1,nine_nine_table 可选择
+            self.ui.multi_method_1.setEnabled(True)
+            self.ui.nine_nine_table.setEnabled(True)
+        else:
+            # 如果 checkbox_tf_multi 未被选中，则使 multi_method_1,nine_nine_table 不可选择
+            self.ui.multi_method_1.setEnabled(False)
+            self.ui.nine_nine_table.setEnabled(False)
 
     """
     按钮型槽函数

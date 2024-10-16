@@ -1,8 +1,12 @@
+from typing import List
+import random
+
 from PySide6.QtWidgets import QWidget
 from .operation import Operation
 from functools import wraps
 from addons.func.method import split_list_evenly
-from addons.func.generator import generate_int_plus_questions, generate_int_minus_questions, generate_int_multi_questions, generate_int_division_questions
+from addons.func.generator import generate_int_plus_questions, generate_int_minus_questions, generate_int_multi_questions, generate_int_division_questions, generate_int_compare_questions, nine_nine_table_questions
+from addons.io.outputs import write_txt_file
 
 
 class Button1Operation(Operation):
@@ -50,29 +54,57 @@ class Button1Operation(Operation):
         list_ = split_list_evenly(list_, type_of_cal)
         if self.tf_plus:
             amount_plus = len(list_.pop())
-            list_plus_questions, list_plus_answers = generate_int_plus_questions(self.input_cal_min_value, self.input_cal_max_value, amount_plus)
-        elif self.tf_minus:
+            list_plus_questions, list_plus_answers = generate_int_plus_questions(
+                self.input_cal_min_value, self.input_cal_max_value, amount_plus
+            )
+        else:
+            list_plus_questions, list_plus_answers = [], []
+        if self.tf_minus:
             amount_minus = len(list_.pop())
-            list_minus_questions, list_minus_answers = generate_int_minus_questions(self.input_cal_min_value, self.input_cal_max_value, amount_minus)
-        elif self.tf_multi:
+            list_minus_questions, list_minus_answers = generate_int_minus_questions(
+                self.input_cal_min_value, self.input_cal_max_value, amount_minus
+            )
+        else:
+            list_minus_questions, list_minus_answers = [], []
+        if self.tf_multi:
             amount_multi = len(list_.pop())
-            # 这里需要添加是否为九九乘法口诀表的计算判断
-
-            list_multi_questions, list_multi_answers = generate_int_multi_questions(self.input_cal_min_value, self.input_cal_max_value, amount_multi)
-        elif self.tf_division:
+            if self.ui.multi_method_1.isChecked():
+                list_multi_questions, list_multi_answers = generate_int_multi_questions(
+                    self.input_cal_min_value, self.input_cal_max_value, amount_multi
+                )
+            else:
+                list_multi_questions, list_multi_answers = nine_nine_table_questions(amount_multi)
+        else:
+            list_multi_questions, list_multi_answers = [], []
+        if self.tf_division:
             amount_division = len(list_.pop())
-            list_division_questions, list_division_answers = generate_int_division_questions(self.input_cal_min_value, self.input_cal_max_value, amount_division, self.tf_remainder)
-        elif self.tf_compare:
+            list_division_questions, list_division_answers = generate_int_division_questions(
+                self.input_cal_min_value, self.input_cal_max_value, amount_division, self.tf_remainder
+            )
+        else:
+            list_division_questions, list_division_answers = [], []
+        if self.tf_compare:
             amount_compare = len(list_.pop())
-
+            list_compare_questions, list_compare_answers = generate_int_compare_questions(
+                self.input_cal_min_value, self.input_cal_max_value, amount_compare,
+                self.tf_plus, self.tf_minus, self.tf_multi, self.tf_division
+            )
+        else:
+            list_compare_questions, list_compare_answers = [], []
         # 合并题目并打乱
+        questions_ = list_plus_questions+list_minus_questions+list_multi_questions+list_division_questions+list_compare_questions
+        answers_ = list_plus_answers+list_minus_answers+list_multi_answers+list_division_answers+list_compare_answers
+        # 打乱
+        random.shuffle(questions_)
 
-
-        pass
+        # 输出题目与答案
+        write_txt_file(filename="题目.txt", data=questions_)
+        self.send_message("题目答案生成成功，请在程序目录下查阅\n")
+        self.send_message("----------\n")
 
     def send_message(self, message: str):
         if message.endswith("\n"):
-            self.ui.output_text.appendPlainText(message)
+            self.ui.output_text.insertPlainText(message)
             return
         else:
             self.ui.output_text.insertPlainText(message)

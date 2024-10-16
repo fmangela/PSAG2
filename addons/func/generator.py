@@ -188,6 +188,97 @@ def generate_int_division_questions(min_num: int, max_num: int, amount: int, rem
         return gen_questions, gen_answers
 
 
+def generate_int_compare_questions(min_num: int, max_num: int, amount: int,
+                                   pl: bool = False, mi: bool = False, mu: bool = False, di: bool = False):
+    """
+    生成比较运算式
+    :param min_num: 最小数
+    :param max_num: 最大数
+    :param amount: 生成数
+    :param pl: 是否加法开启
+    :param mi: 是否减法开启
+    :param mu: 是否乘法开启
+    :param di: 是否除法开启
+    :return: 题目列表和答案列表
+    """
+    n = 0
+    compare_questions = []
+    compare_answers = []
+    while n < amount:
+        m = random.randint(1, 5)
+        if m == 1 and pl:
+            # 加法题
+            a = random.randint(min_num, max_num)
+            b = random.randint(min_num, max_num)
+            c = random.randint(min_num, max_num)
+            n += 1
+            compare_questions.append(f"{a}+{b}[ ]{c}")
+            if a + b > c:
+                compare_answers.append(f"{a}+{b}>{c}")
+            elif a + b < c:
+                compare_answers.append(f"{a}+{b}<{c}")
+            else:
+                compare_answers.append(f"{a}+{b}={c}")
+            continue
+        elif m == 2 and mi:
+            # 减法题
+            a = random.randint(min_num, max_num)
+            b = random.randint(min_num, a)
+            c = random.randint(min_num, max_num)
+            n += 1
+            compare_questions.append(f"{a}-{b}[ ]{c}")
+            if a - b > c:
+                compare_answers.append(f"{a}-{b}>{c}")
+            elif a - b < c:
+                compare_answers.append(f"{a}-{b}<{c}")
+            else:
+                compare_answers.append(f"{a}-{b}={c}")
+            continue
+        elif m == 3 and mu:
+            # 乘法题
+            a = random.randint(min_num, max_num)
+            b = random.randint(min_num, max_num)
+            c = random.randint(min_num, max_num)
+            n += 1
+            compare_questions.append(f"{a}×{b}[ ]{c}")
+            if a * b > c:
+                compare_answers.append(f"{a}×{b}>{c}")
+            elif a * b < c:
+                compare_answers.append(f"{a}×{b}<{c}")
+            else:
+                compare_answers.append(f"{a}×{b}={c}")
+            continue
+        elif m == 4 and di:
+            # 除法题
+            a = random.randint(min_num, max_num)
+            b = random.randint(1, a)
+            c = random.randint(min_num, max_num)
+            n += 1
+            compare_questions.append(f"{a}÷{b}[ ]{c}")
+            if a / b > c:
+                compare_answers.append(f"{a}÷{b}>{c}")
+            elif a / b < c:
+                compare_answers.append(f"{a}÷{b}<{c}")
+            else:
+                compare_answers.append(f"{a}÷{b}={c}")
+            continue
+        elif m == 5:
+            # 光比较
+            a = random.randint(min_num, max_num)
+            b = random.randint(min_num, max_num)
+            n += 1
+            compare_questions.append(f"{a} [ ] {b} ")
+            if a > b:
+                compare_answers.append(f"{a}>{b}")
+            elif a < b:
+                compare_answers.append(f"{a}<{b}")
+            else:
+                compare_answers.append(f"{a}={b}")
+            continue
+
+    return compare_questions, compare_answers
+
+
 if __name__ == '__main__':
     questions, answers = generate_int_division_questions(1, 100, 1000, True)
     print(questions)
