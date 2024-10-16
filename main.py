@@ -3,6 +3,7 @@ import sys
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import QApplication
 from PySide6.QtCore import QFile
+from PySide6 import QtGui
 import os
 from addons.operator.button_operation import Button1Operation
 """
@@ -16,12 +17,15 @@ THISPATH: str = os.path.dirname(sys.argv[0])
 class MainWindow:
     def __init__(self):
         # 从ui文件中加载界面
-        self.__ui_file = QFile("./ui/psag_main.ui")
+        self.__ui_file = QFile(os.path.join(THISPATH, "ui", "psag_main.ui"))
         self.__ui_file.open(QFile.ReadOnly)
         self.__ui_file.close()
 
         # 实例化
         self.ui = loader.load(self.__ui_file, None)
+
+        # 设置窗口图标
+        self.ui.setWindowIcon(QtGui.QIcon(os.path.join(THISPATH, "icon", "pmmd.ico")))
 
         # tab_1里面的关联
         self.ui.checkbox_tf_division.stateChanged.connect(self.on_checkbox_tf_division_state_changed)
