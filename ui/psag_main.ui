@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>512</width>
-    <height>822</height>
+    <width>291</width>
+    <height>488</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -125,6 +125,36 @@
                 </widget>
                </item>
                <item>
+                <widget class="QRadioButton" name="multi_method_1">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="text">
+                  <string>普通乘法</string>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QRadioButton" name="nine_nine_table">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="text">
+                  <string>九九乘法</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="checkbox_tf_line3" stretch="1,1">
+               <item>
                 <widget class="QCheckBox" name="checkbox_tf_division">
                  <property name="text">
                   <string>除法运算</string>
@@ -203,7 +233,7 @@
         <property name="minimumSize">
          <size>
           <width>240</width>
-          <height>180</height>
+          <height>90</height>
          </size>
         </property>
         <property name="verticalScrollBarPolicy">
@@ -232,7 +262,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>512</width>
+     <width>291</width>
      <height>20</height>
     </rect>
    </property>
