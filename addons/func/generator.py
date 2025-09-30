@@ -187,6 +187,27 @@ def generate_int_division_questions(min_num: int, max_num: int, amount: int, rem
                 gen_answers.append(answer_item)
         return gen_questions, gen_answers
 
+def generate_nine_nine_division_questions(amount: int):
+    """
+    生成原理：\n
+    1.九九乘法表内随机取数\n
+    2.得到答案并逆运算\n
+    3.返回公式和结果字符串
+    :param amount: 数量
+    :return: 两个列表
+    """
+    gen_questions =  []
+    gen_answers = []
+
+    for _ in range(amount):
+        a = random.choice(range(1, 10))
+        b = random.choice(range(1, 10))
+        c = a * b
+        quest_item, answer_item = int_division_(c, b)
+        gen_questions.append(quest_item)
+        gen_answers.append(answer_item)
+    return gen_questions, gen_answers
+
 
 def generate_int_compare_questions(min_num: int, max_num: int, amount: int,
                                    pl: bool = False, mi: bool = False, mu: bool = False, di: bool = False):

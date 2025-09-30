@@ -5,7 +5,7 @@ from PySide6.QtWidgets import QWidget
 from .operation import Operation
 from functools import wraps
 from addons.func.method import split_list_evenly
-from addons.func.generator import generate_int_plus_questions, generate_int_minus_questions, generate_int_multi_questions, generate_int_division_questions, generate_int_compare_questions, nine_nine_table_questions
+from addons.func.generator import generate_int_plus_questions, generate_int_minus_questions, generate_int_multi_questions, generate_int_division_questions, generate_int_compare_questions, nine_nine_table_questions, generate_nine_nine_division_questions
 from addons.io.outputs import write_txt_file
 
 
@@ -21,6 +21,7 @@ class Button1Operation(Operation):
         self.tf_compare = None
         self.tf_multi = None
         self.tf_division = None
+        self.nine_nine_division = None
         self.tf_remainder = None
         self.input_amount = None
 
@@ -69,18 +70,24 @@ class Button1Operation(Operation):
         if self.tf_multi:
             amount_multi = len(list_.pop())
             if self.ui.multi_method_1.isChecked():
+                # 如果选中普通乘法
                 list_multi_questions, list_multi_answers = generate_int_multi_questions(
                     self.input_cal_min_value, self.input_cal_max_value, amount_multi
                 )
             else:
+                # 如果是其他情况（目前也就是九九乘法表）
                 list_multi_questions, list_multi_answers = nine_nine_table_questions(amount_multi)
         else:
             list_multi_questions, list_multi_answers = [], []
-        if self.tf_division:
+        if self.tf_division: # 如果选择了除法
             amount_division = len(list_.pop())
-            list_division_questions, list_division_answers = generate_int_division_questions(
-                self.input_cal_min_value, self.input_cal_max_value, amount_division, self.tf_remainder
-            )
+            # 如果除法是九九乘法表的
+            if self.ui.nine_nine_table2.isChecked():
+                list_division_questions, list_division_answers = generate_nine_nine_division_questions(amount_division)
+            else:
+                list_division_questions, list_division_answers = generate_int_division_questions(
+                    self.input_cal_min_value, self.input_cal_max_value, amount_division, self.tf_remainder
+                )
         else:
             list_division_questions, list_division_answers = [], []
         if self.tf_compare:
@@ -120,7 +127,8 @@ class Button1Operation(Operation):
         self.tf_compare = self.ui.checkbox_tf_compare.isChecked()
         self.tf_multi = self.ui.checkbox_tf_multi.isChecked()
         self.tf_division = self.ui.checkbox_tf_division.isChecked()
-        self.tf_remainder = self.ui.checkbox_tf_remainder.isChecked()
+        self.nine_nine_division = self.ui.nine_nine_table2.isChecked()# 读取选择是否为九九乘法表
+        self.tf_remainder = self.ui.checkbox_tf_remainder.isChecked()# 读取选择是否为余数
         self.input_amount = self.ui.input_questions_num.text()
 
     def check_parameters(self):
