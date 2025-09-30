@@ -35,16 +35,19 @@ class MainWindow:
     """
     状态改变型槽函数
     """
-    # 槽函数1，tab_1里面余数checkbox的可选改变
+    # 槽函数1，tab_1里面余数checkbox和九九乘法表限制的可选改变
     def on_checkbox_tf_division_state_changed(self, state):
         # 当 checkbox_tf_division 的状态改变时调用此函数
         if state == 2:
-            # 如果被选中，则使 checkbox_tf_remainder 可选择
+            # 如果被选中，则使 checkbox_tf_remainder和nine_nine_table2 可选择
             self.ui.checkbox_tf_remainder.setEnabled(True)
+            self.ui.nine_nine_table2.setEnabled(True)
         else:
-            # 如果 checkbox_tf_division 未被选中，则使 checkbox_tf_remainder 不可选择
+            # 如果 checkbox_tf_division 未被选中，则使 checkbox_tf_remainder和nine_nine_table2 不可选择
             self.ui.checkbox_tf_remainder.setEnabled(False)
+            self.ui.nine_nine_table2.setEnabled(False)
 
+    # 槽函数2，tab_1里面乘法checkbox的可选改变
     def on_checkbox_tf_multi_state_changed(self, state):
         # 当 checkbox_tf_multi 的状态改变时调用此函数
         if state == 2:
