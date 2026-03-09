@@ -1,0 +1,9 @@
+# PSAG2 Python Arithmetic题库生成器 依赖
+
+# 核心GUI框架
+PySide6>=6.5.0
+
+# 用于打包为Windows exe (可选)
+pyinstaller>=6.0.0
+
+# 分数运算（Python内置fractions无需额外安装）
